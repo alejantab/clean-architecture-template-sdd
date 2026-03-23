@@ -1,0 +1,28 @@
+---
+description: Airy Code & Explicit Typing Standards
+globs: lib/**/*.dart, test/**/*.dart
+---
+# Airy Code & Senior Formatting
+
+## Explicit Typing
+- ALWAYS declare the explicit type. 
+- BAD: `final result = await repository.getData();`
+- GOOD: `final Either<Failure, UserSession> result = await repository.getData();`
+
+## Logical Spacing (The "Airy" Rule)
+- Mandatory blank line between variable declarations and the start of logic/function calls.
+- Mandatory blank line before and after any `await` operation.
+- Mandatory blank line before and after `if`, `for`, `while` blocks.
+- Mandatory blank line before and after `try-catch` blocks.
+- Guard clauses (early returns) must have a blank line before and after.
+
+## Control Structures
+- Every `if`, `for`, and `while` MUST use curly braces `{ }`, even for single-line blocks.
+- Do NOT use `map((_) => throw StateError('unreachable'))`.
+
+## Senior Typing Standards
+- **Function Returns:** NEVER omit the return type of a function or method.
+    - BAD: `getData() { ... }`
+    - GOOD: `Future<Either<Failure, Data>> getData() { ... }`
+- **Stream Typing:** Always specify the type for `BehaviorSubject` and `Stream`.
+    - GOOD: `final BehaviorSubject<AppState> _stateController = BehaviorSubject<AppState>();`

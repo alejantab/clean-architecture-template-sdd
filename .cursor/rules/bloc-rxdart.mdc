@@ -1,0 +1,18 @@
+---
+description: RxDart Reactivity & Manual BLoC Implementation
+globs: **/*_bloc.dart, lib/presentation/blocs/**
+---
+# RxDart & BLoC Pattern
+
+## State Management
+- Use **Native BLoC**: Manual implementation ONLY. Do NOT use `flutter_bloc` or `provider`.
+- Use `BehaviorSubject` for states that need to persist the last value.
+
+## Implementation Rules
+- **Exposure:** Always expose subjects as `ValueStream<T>` or `Stream<T>`. Hide the `Subject` from the UI.
+- **Memory Management:** Use `CompositeSubscription _subscriptions = CompositeSubscription();`.
+- **Cleanup:** Every `Subject` MUST be closed in the `dispose()` method. 
+- **Pattern:** Use `.addTo(_subscriptions)` for every internal stream subscription.
+
+## Interactions
+- Widgets only trigger events/methods; they do NOT know how the BLoC processes data.

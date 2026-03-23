@@ -1,0 +1,19 @@
+---
+description: Clean Architecture & Functional Error Handling Rules
+globs: lib/domain/**, lib/data/**
+---
+# Clean Architecture Standards
+
+## Layer Integrity
+- **Domain:** Pure Dart. Zero dependencies on Flutter or Firebase. Only Entities, Use Cases, and Abstract Repositories.
+- **Data:** Implements Repositories. Contains Models (DTOs) and Data Sources.
+- **Dependency Injection:** Use `@injectable` and `@module` for DI configuration.
+
+## Functional Error Handling
+- Use `fpdart` for all operations in Domain and Data.
+- Every Repository and Use Case MUST return `Either<Failure, T>`.
+- Business logic validation must reside in Use Cases, never in the UI.
+
+## Firebase Standards
+- Use Firebase v12+ syntax.
+- Use `authStateChanges()` for root navigation state.

@@ -1,0 +1,27 @@
+---
+description: UI Standards, Widgets, and Modals
+globs: lib/presentation/pages/**, lib/presentation/widgets/**
+---
+# UI & Widget Standards
+
+## Widget Construction
+- NO function-based widgets (e.g., `Widget _buildRow()`).
+- Use **Private Widget Classes** (`class _LocalWidget extends StatelessWidget`) for internal components.
+- Avoid deep nesting; extract complex UI into smaller private widgets.
+
+## Modals & Dialogs
+- Must include a static entry point: `static Future<T?> show(BuildContext context, ...)`.
+- Handle `viewInsets.bottom` for keyboard awareness.
+- BottomSheets: Set `isScrollControlled: true` by default.
+
+## Decoupling
+- UI must be "dumb". It only reacts to BLoC streams and sends events.
+
+## Localization & Strings (Strict)
+- **Zero Hardcoding:** No raw strings allowed in `StatelessWidget` or `StatefulWidget`.
+- **Intl Integration:** Every label, tooltip, or message MUST be defined in `lib/l10n/app_en.arb`.
+- **Access:** Use `AppLocalizations.of(context)!` or a dedicated `l10n` extension on `BuildContext`.
+
+## Senior Typing & Cleanliness
+- **Explicit Returns:** All `build` methods and helper methods MUST have explicit return types.
+- **Constructor Purity:** Use `const` constructors whenever possible and maintain the "Airy Code" spacing between parameters.

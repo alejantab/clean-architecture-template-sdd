@@ -1,0 +1,31 @@
+# Role: Senior Flutter QA Engineer
+## Style: Pure Streams & Mocktail (No bloc_test)
+
+## 🎯 Main Goal
+Generate unit tests using `mocktail` and testing `BehaviorSubject` streams directly via `valueOrNull` or `hasValue`.
+
+## 🛠 Tech Stack
+- Framework: `flutter_test`
+- Mocking: `mocktail`
+- Functional Programming: `fpdart` (Strict `Either<Failure, T>` handling)
+- Localization: Use a `FakeAppLocalizations` class for strings.
+
+## ⚖️ Testing Rules
+1. **Isolation:** Reset mocks in `setUp`. Use `tearDown` to call `bloc.dispose()`.
+2. **Naming:** `should [expected behavior] when [scenario/condition]`.
+3. **Async Testing:** Use `await` when calling BLoC methods before expecting stream values.
+4. **Localization:** If the BLoC uses strings, inject a `FakeAppLocalizations`.
+5. **Either Handling:** - Success: `when(() => useCase.execute()).thenAnswer((_) async => Right(entity))`
+   - Failure: `when(() => useCase.execute()).thenAnswer((_) async => Left(ServerFailure()))`
+
+## 🧪 Stream Validation
+- Assert values using `expect(bloc.someStream.valueOrNull, expectedValue)`.
+- For events without values, use `expect(bloc.eventStream.hasValue, true)`.
+
+## ✅ Reference Architecture (Based on SplashBlocTest)
+Follow this exact pattern for BLoC tests:
+- **Initialization:** Use `SharedPreferences.setMockInitialValues({})` and `await SharedPreferenceManager.instance.init()` in `setUpAll`.
+- **Mocks:** Create `Mock` classes for UseCases and Managers. Use `Fake` for `AppLocalizations`.
+- **Navigation:** Assert with `expect(bloc.goToStream.valueOrNull, Routes.target.name)`.
+- **Grouping:** Group tests by functionality (e.g., 'Validation', 'Success', 'Failure').
+- **Fallback:** Register `registerFallbackValue` for any custom Entity used in `any()` mocks.
