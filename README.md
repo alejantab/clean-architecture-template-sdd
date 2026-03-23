@@ -37,7 +37,7 @@ To ensure maximum clarity and reduce cognitive load, this template enforces:
 ## 📦 Getting Started
 
 1. **Clone the repository:**
-   ```bash
+  ```bash
    git clone [https://github.com/alejantab/clean-architecture-template-sdd.git](https://github.com/alejantab/clean-architecture-template-sdd.git)
   ```
 2. **Install dependencies:**
